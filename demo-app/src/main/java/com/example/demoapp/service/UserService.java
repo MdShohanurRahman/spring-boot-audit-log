@@ -1,6 +1,7 @@
 package com.example.demoapp.service;
 
 import com.example.demoapp.annotation.LogUserActivity;
+import com.example.demoapp.dto.CreateUserRequest;
 import com.example.demoapp.entity.User;
 import com.example.demoapp.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -21,5 +22,12 @@ public class UserService {
     @LogUserActivity
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public User createUser(CreateUserRequest request) {
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        return userRepository.save(user);
     }
 }
